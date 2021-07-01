@@ -4,13 +4,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import br.com.senai.curso.Curso;
+import br.com.senai.curso.CursoController;
+
 public class AlunoController {
 
 	private Scanner tec;
+	private CursoController cursoController;
 
 	List<Aluno> alunos = new ArrayList<>();
 
 	public AlunoController() {
+		cursoController = new CursoController();
 		tec = new Scanner(System.in);
 	}
 
@@ -20,7 +25,7 @@ public class AlunoController {
 		return tec.nextInt();
 	}
 
-	public void menuAluno(List<Aluno> alunos) {
+	public void menuAluno(List<Aluno> alunos, List<Curso> cursos) {
 
 		boolean sair = false;
 
@@ -38,7 +43,7 @@ public class AlunoController {
 
 			case 1:
 				System.out.println("\n");
-				alunos.add(cadastrarAluno());
+				alunos.add(cadastrarAluno(cursos));
 				break;
 
 			case 2:
@@ -46,7 +51,7 @@ public class AlunoController {
 				break;
 
 			case 3:
-				editarAluno(alunos);
+				editarAluno(alunos, cursos);
 				break;
 
 			case 4:
@@ -66,11 +71,32 @@ public class AlunoController {
 		} while (sair);
 	}
 
-	public Aluno cadastrarAluno() {
-		Aluno aluno = new Aluno();
+	public Aluno cadastrarAluno(List<Curso> cursos) {
 
-		System.out.println("---------- CADASTRAR ALUNOS ----------");
+		if (cursos.isEmpty()) {
+			System.out.println("\n");
+			System.out.println(
+					"Impossível realizar o cadastro de um aluno antes de efetuar o cadastro dos cursos em que o aluno pode se matricular. Retorne ao menu principal para cadastrar algum curso!");
+			System.out.println("\n");
+			return null;
+		}
+
+		cursoController.listarCursos(cursos);
+
+		Aluno aluno = new Aluno();
+		Curso curso = new Curso();
+
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------------------- CADASTRAR ALUNOS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
+
+		System.out.print("Informe o ID do curso que o aluno deseja se matricular: ");
+		int idCurso = tec.nextInt() - 1;
+		System.out.println("\n");
+
+		curso.setNomeCurso(cursos.get(idCurso).getNomeCurso());
+
+		aluno.setCurso(curso);
 
 		System.out.print("Informe o nome do aluno: ");
 		tec.nextLine();
@@ -108,24 +134,20 @@ public class AlunoController {
 				"--------------------------------------------------------------------------------------------------------------------- ALUNOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
-		System.out.printf("| %2s | %15s | %2s | %20s | %23s | %30s | \n", 
-				"ID", "Nome", "Idade", "País", "Estado", "Cidade");
+		System.out.printf("| %2s | %15s | %2s | %20s | %23s | %30s | %20s |\n", "ID", "Nome", "Idade", "País", "Estado",
+				"Cidade", "Curso");
 
 		for (int i = 0; i < alunos.size(); i++) {
-			System.out.printf("| %2d | %15s | %5d | %20s | %23s | %30s | \n", 
-					i + 1, 
-					alunos.get(i).getNomeAluno(),
-					alunos.get(i).getIdadeAluno(), 
-					alunos.get(i).getPais(), 
-					alunos.get(i).getEstado(),
-					alunos.get(i).getCidade());
+			System.out.printf("| %2d | %15s | %5d | %20s | %23s | %30s | %20s |\n", i + 1, alunos.get(i).getNomeAluno(),
+					alunos.get(i).getIdadeAluno(), alunos.get(i).getPais(), alunos.get(i).getEstado(),
+					alunos.get(i).getCidade(), alunos.get(i).getCurso().getNomeCurso());
 		}
 		System.out.println("\n");
 
 		return alunos;
 	}
 
-	public List<Aluno> editarAluno(List<Aluno> alunos) {
+	public List<Aluno> editarAluno(List<Aluno> alunos, List<Curso> cursos) {
 
 		Aluno aluno = new Aluno();
 
@@ -145,6 +167,7 @@ public class AlunoController {
 		System.out.println("|3 -> País                      |");
 		System.out.println("|4 -> Estado                    |");
 		System.out.println("|5 -> Cidade                    |");
+		System.out.println("|6 -> Curso                     |");
 		System.out.println("|-------------------------------|");
 		System.out.println("\n");
 		System.out.print("Informe o campo que deseja editar -> ");
@@ -165,6 +188,7 @@ public class AlunoController {
 			aluno.setPais(alunos.get(idAluno).getPais());
 			aluno.setEstado(alunos.get(idAluno).getEstado());
 			aluno.setCidade(alunos.get(idAluno).getCidade());
+			aluno.setCurso(alunos.get(idAluno).getCurso());
 
 			alunos.set(idAluno, aluno);
 			System.out.println("\n");
@@ -182,6 +206,7 @@ public class AlunoController {
 			aluno.setPais(alunos.get(idAluno).getPais());
 			aluno.setEstado(alunos.get(idAluno).getEstado());
 			aluno.setCidade(alunos.get(idAluno).getCidade());
+			aluno.setCurso(alunos.get(idAluno).getCurso());
 
 			alunos.set(idAluno, aluno);
 			System.out.println("\n");
@@ -200,6 +225,7 @@ public class AlunoController {
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
 			aluno.setEstado(alunos.get(idAluno).getEstado());
 			aluno.setCidade(alunos.get(idAluno).getCidade());
+			aluno.setCurso(alunos.get(idAluno).getCurso());
 
 			alunos.set(idAluno, aluno);
 			System.out.println("\n");
@@ -218,6 +244,7 @@ public class AlunoController {
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
 			aluno.setPais(alunos.get(idAluno).getPais());
 			aluno.setCidade(alunos.get(idAluno).getCidade());
+			aluno.setCurso(alunos.get(idAluno).getCurso());
 
 			alunos.set(idAluno, aluno);
 			System.out.println("\n");
@@ -236,6 +263,26 @@ public class AlunoController {
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
 			aluno.setPais(alunos.get(idAluno).getPais());
 			aluno.setEstado(alunos.get(idAluno).getEstado());
+			aluno.setCurso(alunos.get(idAluno).getCurso());
+
+			alunos.set(idAluno, aluno);
+			System.out.println("\n");
+
+			break;
+
+		case 6:
+			System.out.println("---- Editar o nome do curso em que o aluno foi matriculado ----");
+			System.out.println("\n");
+			cursoController.listarCursos(cursos);
+			System.out.println("\n");
+			System.out.print("Informe o ID do novo do curso -> ");
+			aluno.setCurso(cursos.get(tec.nextInt() - 1));
+
+			aluno.setNomeAluno(alunos.get(idAluno).getNomeAluno());
+			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
+			aluno.setPais(alunos.get(idAluno).getPais());
+			aluno.setEstado(alunos.get(idAluno).getEstado());
+			aluno.setCidade(alunos.get(idAluno).getCidade());
 
 			alunos.set(idAluno, aluno);
 			System.out.println("\n");
@@ -268,7 +315,7 @@ public class AlunoController {
 
 		if (alunos.size() <= idAluno) {
 			System.out.println("\n");
-			System.out.println("Pessoa não cadastrado!!");
+			System.out.println("Aluno não cadastrado!!");
 			System.out.println("\n");
 			return;
 		}

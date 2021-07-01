@@ -153,37 +153,37 @@ public class CursoController {
 	}
 
 	public void excluirCurso(List<Curso> cursos, List<Aluno> alunos) {
-		listarCursos(cursos);
 
 		if (cursos.isEmpty()) {
+			System.out.println("\n");
+			System.out.println("Impossível realizar a exclusão, não há nenhum curso cadastrado!");
+			System.out.println("\n");
 			return;
 		}
-		if (cursos.isEmpty() && alunos.isEmpty()) {
-			return;
-		}
 
-		if (cursos.isEmpty() || alunos.isEmpty()) {
+		listarCursos(cursos);
 
-			System.out.println(
-					"----------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO ----------------------------------------------------------------------------------------------------------------------");
-			System.out.println("\n");
-			
-			System.out.print("Informe o ID do curso que deseja excluir -> ");
+		System.out.println(
+				"----------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO ----------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n");
 
-			int idCurso = tec.nextInt() - 1;
-			System.out.println("\n");
+		System.out.print("Informe o ID do curso que deseja excluir -> ");
+		int idCurso = tec.nextInt() - 1;
+		System.out.println("\n");
 
-			if (cursos.size() <= idCurso) {
+		String nomeCurso = cursos.get(idCurso).getNomeCurso();
+
+		for (int i = 0; i < alunos.size(); i++) {
+			String alunoNomeCurso = alunos.get(i).getCurso().getNomeCurso();
+
+			if (alunoNomeCurso.equals(nomeCurso)) {
 				System.out.println("\n");
-				System.out.println("Curso não cadastrado!!");
+				System.out.println("Não é possível excluir o curso pois há um aluno cadastrado neste curso!");
 				System.out.println("\n");
+				return;
 			}
-			cursos.remove(idCurso);
-			return;
 		}
-		System.out.println("\n");
-		System.out.println("Impossível realizar a exclusão, há um aluno cadastrado neste curso!!");
-		System.out.println("\n");
-		return;
+
+		cursos.remove(idCurso);
 	}
 }

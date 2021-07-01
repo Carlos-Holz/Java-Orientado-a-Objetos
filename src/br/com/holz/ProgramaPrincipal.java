@@ -18,7 +18,7 @@ public class ProgramaPrincipal {
 		System.out.println("|3 -> Finalizar Sistema              |");
 		System.out.println("|------------------------------------|");
 
-}
+	}
 
 	public static void main(String[] args) {
 
@@ -44,7 +44,7 @@ public class ProgramaPrincipal {
 			switch (opcao) {
 
 			case 1:
-				alunoController.menuAluno(alunos);
+				alunoController.menuAluno(alunos, cursos);
 				break;
 
 			case 2:
