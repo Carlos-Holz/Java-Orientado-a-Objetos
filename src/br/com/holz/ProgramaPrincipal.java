@@ -11,12 +11,6 @@ import br.com.senai.curso.CursoController;
 
 public class ProgramaPrincipal {
 
-	private static Scanner tec;
-
-	public ProgramaPrincipal() {
-		tec = new Scanner(System.in);
-	}
-
 	public static void menuPrincipal() {
 		System.out.println("|---------- MENU PRINCIPAL ----------|");
 		System.out.println("|1 -> Alunos                         |");
@@ -24,9 +18,12 @@ public class ProgramaPrincipal {
 		System.out.println("|3 -> Finalizar Sistema              |");
 		System.out.println("|------------------------------------|");
 
-	}
+}
 
 	public static void main(String[] args) {
+
+		Scanner tec;
+		tec = new Scanner(System.in);
 
 		List<Aluno> alunos = new ArrayList<>();
 		List<Curso> cursos = new ArrayList<>();
@@ -51,7 +48,7 @@ public class ProgramaPrincipal {
 				break;
 
 			case 2:
-				cursoController.menuCurso(cursos);
+				cursoController.menuCurso(cursos, alunos);
 				break;
 
 			case 3:
@@ -62,7 +59,7 @@ public class ProgramaPrincipal {
 			default:
 				System.out.println("\n");
 				System.out.println("Opção Inválida!!");
-
+				System.out.println("\n");
 				break;
 
 			}
@@ -71,5 +68,6 @@ public class ProgramaPrincipal {
 
 		System.out.println("\n");
 		System.out.println("Sistema Finalizado!!!");
+
 	}
 }

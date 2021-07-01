@@ -22,7 +22,7 @@ public class CursoController {
 		return tec.nextInt();
 	}
 
-	public void menuCurso(List<Curso> cursos) {
+	public void menuCurso(List<Curso> cursos, List<Aluno> alunos) {
 		boolean sair = false;
 
 		do {
@@ -51,7 +51,7 @@ public class CursoController {
 				break;
 
 			case 4:
-				excluirCurso(cursos, null);
+				excluirCurso(cursos, alunos);
 				break;
 
 			default:
@@ -61,7 +61,7 @@ public class CursoController {
 
 			System.out.print("Deseja retornar ao MENU PRINCIPAL? [S/N] -> ");
 			String resposta = tec.next();
-			sair = resposta.equalsIgnoreCase("s") ? true : false;
+			sair = resposta.equalsIgnoreCase("n") ? true : false;
 			System.out.println("\n");
 
 		} while (sair);
@@ -85,19 +85,20 @@ public class CursoController {
 
 		if (cursos.isEmpty()) {
 			System.out.println("\n");
-			System.out.println("A lista está vazia, cadastre algum produto!");
+			System.out.println("A lista está vazia, cadastre algum curso!!");
 			System.out.println("\n");
 			return null;
 		}
 
 		System.out.println("\n");
-		System.out.println("--------------------------------------------------------------------------------------------------------------------- CURSOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------------------- CURSOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
 		System.out.printf("| %2s | %50s | \n", "ID", "Curso");
 
 		for (int i = 0; i < cursos.size(); i++) {
-			System.out.printf("| %2d | %49s | \n", i + 1, cursos.get(i).getNomeCurso());
+			System.out.printf("| %2d | %50s | \n", i + 1, cursos.get(i).getNomeCurso());
 		}
 
 		System.out.println("\n");
@@ -132,7 +133,8 @@ public class CursoController {
 			System.out.println("---- Editar o nome do curso cadastrado ----");
 			System.out.println("\n");
 			System.out.print("Informe novamente  o novo do curso -> ");
-			curso.setNomeCurso(tec.next());
+			tec.nextLine();
+			curso.setNomeCurso(tec.nextLine());
 
 			cursos.set(idCurso, curso);
 
@@ -141,7 +143,9 @@ public class CursoController {
 			break;
 
 		default:
+			System.out.println("\n");
 			System.out.println("Opção Inválida!!!!");
+			System.out.println("\n");
 			break;
 		}
 
@@ -152,26 +156,27 @@ public class CursoController {
 		listarCursos(cursos);
 
 		if (cursos.isEmpty() || alunos.isEmpty()) {
+			System.out.println(
+					"--------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO -------------------------------------------------------------------------------------------------------------------");
 			System.out.println("\n");
-			System.out.println("Impossível realizar a exclusão do Curso pois há um aluno cursando o mesmo!!");
+
+			System.out.print("Informe o ID do curso que deseja excluir -> ");
+			int idCurso = tec.nextInt() - 1;
 			System.out.println("\n");
+			
+			if (cursos.size() <= idCurso) {
+				System.out.println("\n");
+				System.out.println("Curso não cadastrado!!");
+				System.out.println("\n");
+				return;
+			}
+			cursos.remove(idCurso);
 			return;
 		}
 
-		System.out.println("--------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO -------------------------------------------------------------------------------------------------------------------");
+		System.out.println("\n");
+		System.out.println("Impossível realizar a exclusão, há um aluno cadastrado neste curso!!");
 		System.out.println("\n");
 
-		System.out.print("Informe o ID do curso que deseja excluir -> ");
-		int idCurso = tec.nextInt() - 1;
-		System.out.println("\n");
-
-		if (cursos.size() <= idCurso) {
-			System.out.println("\n");
-			System.out.println("Curso não cadastrado!!");
-			System.out.println("\n");
-			return;
-		}
-
-		cursos.remove(idCurso);
 	}
 }

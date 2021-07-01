@@ -38,19 +38,19 @@ public class AlunoController {
 
 			case 1:
 				System.out.println("\n");
-
+				alunos.add(cadastrarAluno());
 				break;
 
 			case 2:
-
+				listarAlunos(alunos);
 				break;
 
 			case 3:
-
+				editarAluno(alunos);
 				break;
 
 			case 4:
-
+				excluirAluno(alunos);
 				break;
 
 			default:
@@ -60,7 +60,7 @@ public class AlunoController {
 
 			System.out.print("Deseja retornar ao MENU PRINCIPAL? [S/N] -> ");
 			String resposta = tec.next();
-			sair = resposta.equalsIgnoreCase("s") ? true : false;
+			sair = resposta.equalsIgnoreCase("n") ? true : false;
 			System.out.println("\n");
 
 		} while (sair);
@@ -83,10 +83,13 @@ public class AlunoController {
 		aluno.setPais(tec.next());
 
 		System.out.print("Informe o estado que o aluno reside: ");
-		aluno.setEstado(tec.next());
+		tec.nextLine();
+		aluno.setEstado(tec.nextLine());
 
 		System.out.print("Informe a cidade que o aluno reside: ");
-		aluno.setCidade(tec.next());
+		aluno.setCidade(tec.nextLine());
+
+		System.out.println("\n");
 
 		return aluno;
 	}
@@ -101,15 +104,20 @@ public class AlunoController {
 		}
 
 		System.out.println("\n");
-		System.out.println("--------------------------------------------------------------------------------------------------------------------- ALUNOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------------------- ALUNOS CADASTRADOS -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
-		System.out.printf("| %2s | %15s | %2s | %20s | %23s | %30s | \n", "ID", "Nome", "Idade", "País", "Estado",
-				"Cidade");
+		System.out.printf("| %2s | %15s | %2s | %20s | %23s | %30s | \n", 
+				"ID", "Nome", "Idade", "País", "Estado", "Cidade");
 
 		for (int i = 0; i < alunos.size(); i++) {
-			System.out.printf("| %2d | %15s | %2d | %19s | %23s | %30s | \n", i + 1, alunos.get(i).getNomeAluno(),
-					alunos.get(i).getIdadeAluno(), alunos.get(i).getPais(), alunos.get(i).getEstado(),
+			System.out.printf("| %2d | %15s | %5d | %20s | %23s | %30s | \n", 
+					i + 1, 
+					alunos.get(i).getNomeAluno(),
+					alunos.get(i).getIdadeAluno(), 
+					alunos.get(i).getPais(), 
+					alunos.get(i).getEstado(),
 					alunos.get(i).getCidade());
 		}
 		System.out.println("\n");
@@ -246,7 +254,8 @@ public class AlunoController {
 			return;
 		}
 
-		System.out.println("--------------------------------------------------------------------------------------------------------------------- EXCLUIR ALUNO -------------------------------------------------------------------------------------------------------------------");
+		System.out.println(
+				"--------------------------------------------------------------------------------------------------------------------- EXCLUIR ALUNO -------------------------------------------------------------------------------------------------------------------");
 		System.out.println("\n");
 
 		System.out.print("Informe o ID do aluno que deseja excluir -> ");
