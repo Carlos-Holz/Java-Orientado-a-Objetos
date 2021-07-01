@@ -142,9 +142,9 @@ public class AlunoController {
 		System.out.println("|--- Campos a serem editados ---|");
 		System.out.println("|1 -> Nome do Aluno             |");
 		System.out.println("|2 -> Idade                     |");
-		System.out.println("|4 -> País                      |");
-		System.out.println("|6 -> Estado                    |");
-		System.out.println("|8 -> Cidade                    |");
+		System.out.println("|3 -> País                      |");
+		System.out.println("|4 -> Estado                    |");
+		System.out.println("|5 -> Cidade                    |");
 		System.out.println("|-------------------------------|");
 		System.out.println("\n");
 		System.out.print("Informe o campo que deseja editar -> ");
@@ -158,7 +158,8 @@ public class AlunoController {
 			System.out.println("---- Editar o nome do aluno cadastrado ----");
 			System.out.println("\n");
 			System.out.print("Informe o novo nome do aluno -> ");
-			aluno.setNomeAluno(tec.next());
+			tec.nextLine();
+			aluno.setNomeAluno(tec.nextLine());
 
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
 			aluno.setPais(alunos.get(idAluno).getPais());
@@ -192,7 +193,8 @@ public class AlunoController {
 			System.out.println("---- Editar o nome do país cadastrado ----");
 			System.out.println("\n");
 			System.out.print("Informe o novo país do aluno -> ");
-			aluno.setPais(tec.next());
+			tec.nextLine();
+			aluno.setPais(tec.nextLine());
 
 			aluno.setNomeAluno(alunos.get(idAluno).getNomeAluno());
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
@@ -209,7 +211,8 @@ public class AlunoController {
 			System.out.println("---- Editar o nome do estado cadastrado ----");
 			System.out.println("\n");
 			System.out.print("Informe o novo nome do estado -> ");
-			aluno.setEstado(tec.next());
+			tec.nextLine();
+			aluno.setEstado(tec.nextLine());
 
 			aluno.setNomeAluno(alunos.get(idAluno).getNomeAluno());
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());
@@ -226,7 +229,8 @@ public class AlunoController {
 			System.out.println("---- Editar o nome da cidade cadastrada ----");
 			System.out.println("\n");
 			System.out.print("Informe o novo nome da cidade -> ");
-			aluno.setCidade(tec.next());
+			tec.nextLine();
+			aluno.setCidade(tec.nextLine());
 
 			aluno.setNomeAluno(alunos.get(idAluno).getNomeAluno());
 			aluno.setIdadeAluno(alunos.get(idAluno).getIdadeAluno());

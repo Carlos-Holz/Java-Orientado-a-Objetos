@@ -69,5 +69,6 @@ public class ProgramaPrincipal {
 		System.out.println("\n");
 		System.out.println("Sistema Finalizado!!!");
 
+		tec.close();
 	}
 }

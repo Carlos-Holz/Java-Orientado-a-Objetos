@@ -132,7 +132,7 @@ public class CursoController {
 		case 1:
 			System.out.println("---- Editar o nome do curso cadastrado ----");
 			System.out.println("\n");
-			System.out.print("Informe novamente  o novo do curso -> ");
+			System.out.print("Informe novamente o novo nome do curso -> ");
 			tec.nextLine();
 			curso.setNomeCurso(tec.nextLine());
 
@@ -155,28 +155,35 @@ public class CursoController {
 	public void excluirCurso(List<Curso> cursos, List<Aluno> alunos) {
 		listarCursos(cursos);
 
-		if (cursos.isEmpty() || alunos.isEmpty()) {
-			System.out.println(
-					"--------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO -------------------------------------------------------------------------------------------------------------------");
-			System.out.println("\n");
+		if (cursos.isEmpty()) {
+			return;
+		}
+		if (cursos.isEmpty() && alunos.isEmpty()) {
+			return;
+		}
 
-			System.out.print("Informe o ID do curso que deseja excluir -> ");
-			int idCurso = tec.nextInt() - 1;
+		if (cursos.isEmpty() || alunos.isEmpty()) {
+
+			System.out.println(
+					"----------------------------------------------------------------------------------------------------------------------- EXCLUIR CURSO ----------------------------------------------------------------------------------------------------------------------");
 			System.out.println("\n");
 			
+			System.out.print("Informe o ID do curso que deseja excluir -> ");
+
+			int idCurso = tec.nextInt() - 1;
+			System.out.println("\n");
+
 			if (cursos.size() <= idCurso) {
 				System.out.println("\n");
 				System.out.println("Curso não cadastrado!!");
 				System.out.println("\n");
-				return;
 			}
 			cursos.remove(idCurso);
 			return;
 		}
-
 		System.out.println("\n");
 		System.out.println("Impossível realizar a exclusão, há um aluno cadastrado neste curso!!");
 		System.out.println("\n");
-
+		return;
 	}
 }
